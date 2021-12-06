@@ -9,6 +9,11 @@
 	"categories": [
 		"Other"
 	],
+	"author": {
+		"name": "Maksim Syomochkin",
+		"email": "maksim77ster@gmail.com"
+	},
+	"publisher": "mak-sim",
 	"activationEvents": [
         "workspaceContains:.git/"
 	],
