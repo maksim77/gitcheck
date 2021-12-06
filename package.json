@@ -14,6 +14,10 @@
 		"email": "maksim77ster@gmail.com"
 	},
 	"publisher": "mak-sim",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/maksim77/gitcheck.git"
+	},
 	"activationEvents": [
         "workspaceContains:.git/"
 	],
