@@ -14,10 +14,23 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
+		"configuration":[
 			{
-				"command": "gitcheck.helloWorld",
-				"title": "Hello World"
+				"title": "Git User Check",
+				"properties": {
+				"gitcheck.domain": {
+					"type": "string",
+					"description": "remote domain for check"
+				},
+				"gitcheck.user": {
+					"type":"string",
+					"description": "Username for gitcheck domain"
+				},
+				"gitcheck.email": {
+					"type":"string",
+					"description": "Email for gitcheck domain"
+				}
+				}
 			}
 		]
 	},
