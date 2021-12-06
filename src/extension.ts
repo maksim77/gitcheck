@@ -4,14 +4,14 @@ import { GitExtension } from './git';
 export async function activate() {
 	var conf = vscode.workspace.getConfiguration("gitcheck");
 	const domain = conf.get<string>("domain");
-	const user = conf.get<string>("user");
+	const name = conf.get<string>("name");
 	const email = conf.get<string>("email");
 
 	if (!vscode.workspace.workspaceFolders) {
 		return;
 	}
 
-	if (!(domain && user && email)) {
+	if (!(domain && name && email)) {
 		console.log("Missing config params");
 		return;
 	}
@@ -27,7 +27,7 @@ export async function activate() {
 		const pushUrl = remote.pushUrl;
 		if (pushUrl && pushUrl.includes(domain)) {
 			var gitConfig = await repository.getConfigs();
-			var gitUser:string = "";
+			var gitName:string = "";
 			var gitEmail:string = "";
 			gitConfig = gitConfig.filter( elem => {
 				return elem.key === "user.name" || elem.key === "user.email";
@@ -39,7 +39,7 @@ export async function activate() {
 			gitConfig.forEach(c => {
 				switch (c.key) {
 					case "user.name":
-						gitUser = c.value;
+						gitName = c.value;
 						break;
 						
 					case "user.email":
@@ -50,7 +50,7 @@ export async function activate() {
 						console.log(c.key);
 				}
 			});
-			if (gitUser !== user || gitEmail !== email) {
+			if (gitName !== name || gitEmail !== email) {
 				vscode.window.showErrorMessage("Wrong user creds in git");
 			}
 		}
