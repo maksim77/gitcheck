@@ -2,7 +2,7 @@
   "name": "gitcheck",
 	"displayName": "Git User Check",
 	"description": "Checking the user's compliance with the repository",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"preview": true,
 	"engines": {
 		"vscode": "^1.62.0"
