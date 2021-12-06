@@ -1,13 +1,51 @@
 import * as vscode from 'vscode';
+import { GitExtension } from './git';
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "gitcheck" is now active!');
+	var conf = vscode.workspace.getConfiguration("gitcheck");
+	const domain = conf.get<string>("domain");
+	const user = conf.get<string>("user");
+	const email = conf.get<string>("email");
 
-	let disposable = vscode.commands.registerCommand('gitcheck.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello World from Git User Check!');
-	});
+	if (!(domain && user && email)) {
+		console.log("Missing config params");
+		return;
+	}
 
-	context.subscriptions.push(disposable);
+	const git = vscode.extensions.getExtension<GitExtension>('vscode.git')!.exports.getAPI(1)!;
+		const repository = git.repositories[0];
+		repository.state.remotes.forEach(async remote => {
+			const pushUrl = remote.pushUrl;
+			if (pushUrl && pushUrl.includes(domain)) {
+				var gitConfig = await repository.getConfigs();
+				var gitUser:string = "";
+				var gitEmail:string = "";
+				gitConfig = gitConfig.filter( elem => {
+					return elem.key === "user.name" || elem.key === "user.email";
+				});
+				if (gitConfig.length === 0) {
+					vscode.window.showErrorMessage("Missing user creds in git");
+					return;
+				}
+				gitConfig.forEach(c => {
+					switch (c.key) {
+						case "user.name":
+							gitUser = c.value;
+							break;
+							
+						case "user.email":
+							gitEmail = c.value;
+							break;
+							
+						default:
+							console.log(c.key);
+					}
+				});
+				if (gitUser !== user || gitEmail !== email) {
+					vscode.window.showErrorMessage("Wrong user creds in git");
+				}
+			}
+		});
 }
 
 export function deactivate() {}
