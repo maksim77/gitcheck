@@ -23,38 +23,38 @@ export async function activate() {
 		return;
 	}
 
-		repository.state.remotes.forEach(async remote => {
-			const pushUrl = remote.pushUrl;
-			if (pushUrl && pushUrl.includes(domain)) {
-				var gitConfig = await repository.getConfigs();
-				var gitUser:string = "";
-				var gitEmail:string = "";
-				gitConfig = gitConfig.filter( elem => {
-					return elem.key === "user.name" || elem.key === "user.email";
-				});
-				if (gitConfig.length === 0) {
-					vscode.window.showErrorMessage("Missing user creds in git");
-					return;
-				}
-				gitConfig.forEach(c => {
-					switch (c.key) {
-						case "user.name":
-							gitUser = c.value;
-							break;
-							
-						case "user.email":
-							gitEmail = c.value;
-							break;
-							
-						default:
-							console.log(c.key);
-					}
-				});
-				if (gitUser !== user || gitEmail !== email) {
-					vscode.window.showErrorMessage("Wrong user creds in git");
-				}
+	repository.state.remotes.forEach(async remote => {
+		const pushUrl = remote.pushUrl;
+		if (pushUrl && pushUrl.includes(domain)) {
+			var gitConfig = await repository.getConfigs();
+			var gitUser:string = "";
+			var gitEmail:string = "";
+			gitConfig = gitConfig.filter( elem => {
+				return elem.key === "user.name" || elem.key === "user.email";
+			});
+			if (gitConfig.length === 0) {
+				vscode.window.showErrorMessage("Missing user creds in git");
+				return;
 			}
-		});
+			gitConfig.forEach(c => {
+				switch (c.key) {
+					case "user.name":
+						gitUser = c.value;
+						break;
+						
+					case "user.email":
+						gitEmail = c.value;
+						break;
+						
+					default:
+						console.log(c.key);
+				}
+			});
+			if (gitUser !== user || gitEmail !== email) {
+				vscode.window.showErrorMessage("Wrong user creds in git");
+			}
+		}
+	});
 }
 
 export function deactivate() {}
