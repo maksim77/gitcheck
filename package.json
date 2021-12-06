@@ -33,7 +33,7 @@
 				"properties": {
 				"gitcheck.domain": {
 					"type": "string",
-					"description": "remote domain for check"
+					"description": "Remote domain for check"
 				},
 				"gitcheck.user": {
 					"type":"string",
