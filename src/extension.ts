@@ -1,11 +1,15 @@
 import * as vscode from 'vscode';
 import { GitExtension } from './git';
 
-export function activate() {
+export async function activate() {
 	var conf = vscode.workspace.getConfiguration("gitcheck");
 	const domain = conf.get<string>("domain");
 	const user = conf.get<string>("user");
 	const email = conf.get<string>("email");
+
+	if (!vscode.workspace.workspaceFolders) {
+		return;
+	}
 
 	if (!(domain && user && email)) {
 		console.log("Missing config params");
@@ -13,7 +17,12 @@ export function activate() {
 	}
 
 	const git = vscode.extensions.getExtension<GitExtension>('vscode.git')!.exports.getAPI(1)!;
-		const repository = git.repositories[0];
+	const repository = await git.openRepository(vscode.workspace.workspaceFolders[0].uri);
+	
+	if (!repository) {
+		return;
+	}
+
 		repository.state.remotes.forEach(async remote => {
 			const pushUrl = remote.pushUrl;
 			if (pushUrl && pushUrl.includes(domain)) {
