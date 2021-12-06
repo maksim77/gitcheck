@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { GitExtension } from './git';
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate() {
 	var conf = vscode.workspace.getConfiguration("gitcheck");
 	const domain = conf.get<string>("domain");
 	const user = conf.get<string>("user");
