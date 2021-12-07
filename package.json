@@ -1,71 +1,72 @@
 {
   "name": "gitcheck",
-	"displayName": "Git User Check",
-	"description": "Checking the user's compliance with the repository",
-	"version": "0.0.2",
-	"preview": true,
-	"engines": {
-		"vscode": "^1.62.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"author": {
-		"name": "Maksim Syomochkin",
-		"email": "maksim77ster@gmail.com"
-	},
-	"publisher": "mak-sim",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/maksim77/gitcheck.git"
-	},
-	"activationEvents": [
-        "workspaceContains:.git/"
-	],
-	"extensionDependencies": [
-		"vscode.git"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"configuration":[
-			{
-				"title": "Git User Check",
-				"properties": {
-				"gitcheck.domain": {
-					"type": "string",
-					"description": "Remote domain for check"
-				},
-				"gitcheck.name": {
-					"type":"string",
-					"description": "user.name for gitcheck domain"
-				},
-				"gitcheck.email": {
-					"type":"string",
-					"description": "user.email for gitcheck domain"
-				}
-				}
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.62.0",
-		"@types/glob": "^7.1.4",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.17.27",
-		"@typescript-eslint/eslint-plugin": "^5.1.0",
-		"@typescript-eslint/parser": "^5.1.0",
-		"eslint": "^8.1.0",
-		"glob": "^7.1.7",
-		"mocha": "^9.1.3",
-		"typescript": "^4.4.4",
-		"@vscode/test-electron": "^1.6.2"
-	}
+  "displayName": "Git User Check",
+  "description": "Checking the user's compliance with the repository",
+  "version": "0.0.2",
+  "preview": true,
+  "engines": {
+    "vscode": "^1.62.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "author": {
+    "name": "Maksim Syomochkin",
+    "email": "maksim77ster@gmail.com"
+  },
+  "publisher": "mak-sim",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maksim77/gitcheck.git"
+  },
+  "activationEvents": [
+    "workspaceContains:.git/"
+  ],
+  "extensionDependencies": [
+    "vscode.git"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": [
+      {
+        "title": "Git User Check",
+        "properties": {
+          "gitcheck.domain": {
+            "type": "string",
+            "description": "Remote domain for check"
+          },
+          "gitcheck.name": {
+            "type": "string",
+            "description": "user.name for gitcheck domain"
+          },
+          "gitcheck.email": {
+            "type": "string",
+            "description": "user.email for gitcheck domain"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.17.27",
+    "@types/vscode": "^1.62.0",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "@vscode/test-electron": "^1.6.2",
+    "eslint": "^8.1.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.1.3",
+    "typescript": "^4.4.4",
+    "vsce": "^2.5.1"
+  }
 }
