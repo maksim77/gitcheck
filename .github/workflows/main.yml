@@ -82,9 +82,6 @@ jobs:
       - run: echo "VSIX_NAME=$(basename $(find . -maxdepth 1 -type f -iname "*.vsix" | head -1))" >> $GITHUB_ENV
       - uses: actions/create-release@v1
         id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
@@ -92,10 +89,6 @@ jobs:
           draft: false
           prerelease: false
       - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-          DISPLAY: ":99.0"
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ env.VSIX_PATH }}
