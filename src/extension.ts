@@ -42,7 +42,11 @@ export async function activate() {
 			});
 			if (gitConfig.length === 0) {
 				console.error("Missing user creds in git");
-				vscode.window.showErrorMessage("Missing user creds in git");
+				const option = await vscode.window.showErrorMessage("Missing user creds in git", "Overwrite");
+				if (option && option === "Overwrite") {
+					await repository.setConfig("user.name", name);
+					await repository.setConfig("user.email", email);
+				}
 				return;
 			}
 			gitConfig.forEach(c => {
@@ -61,7 +65,11 @@ export async function activate() {
 			});
 			if (gitName !== name || gitEmail !== email) {
 				console.error("Wrong user settings in git");
-				vscode.window.showErrorMessage("Wrong user settings in git");
+				const option = await vscode.window.showErrorMessage("Wrong user settings in git", "Overwrite");
+				if (option && option === "Overwrite") {
+					await repository.setConfig("user.name", name);
+					await repository.setConfig("user.email", email);
+				}	
 			}
 		}
 	});
