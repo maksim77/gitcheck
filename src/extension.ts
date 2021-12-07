@@ -8,6 +8,7 @@ export async function activate() {
 	const email = conf.get<string>("email");
 
 	if (!vscode.workspace.workspaceFolders) {
+		console.log("No opened workspace");
 		return;
 	}
 
@@ -19,12 +20,14 @@ export async function activate() {
 	const gitExt = vscode.extensions.getExtension<GitExtension>('vscode.git')!;
 	const git = gitExt.exports.getAPI(1);
 	if (!git) {
+		console.log("Git extension disabled");
 		return;
 	}
 	
 	const repository = await git.openRepository(vscode.workspace.workspaceFolders[0].uri);
 	
 	if (!repository) {
+		console.error("Cannot open git repository");
 		return;
 	}
 
@@ -38,6 +41,7 @@ export async function activate() {
 				return elem.key === "user.name" || elem.key === "user.email";
 			});
 			if (gitConfig.length === 0) {
+				console.error("Missing user creds in git");
 				vscode.window.showErrorMessage("Missing user creds in git");
 				return;
 			}
@@ -56,7 +60,7 @@ export async function activate() {
 				}
 			});
 			if (gitName !== name || gitEmail !== email) {
-				vscode.window.showErrorMessage("Wrong user creds in git");
+				console.error("Wrong user settings in git");
 			}
 		}
 	});
