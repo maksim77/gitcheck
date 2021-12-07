@@ -61,6 +61,7 @@ export async function activate() {
 			});
 			if (gitName !== name || gitEmail !== email) {
 				console.error("Wrong user settings in git");
+				vscode.window.showErrorMessage("Wrong user settings in git");
 			}
 		}
 	});
