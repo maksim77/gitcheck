@@ -16,7 +16,12 @@ export async function activate() {
 		return;
 	}
 
-	const git = vscode.extensions.getExtension<GitExtension>('vscode.git')!.exports.getAPI(1)!;
+	const gitExt = vscode.extensions.getExtension<GitExtension>('vscode.git')!;
+	const git = gitExt.exports.getAPI(1);
+	if (!git) {
+		return;
+	}
+	
 	const repository = await git.openRepository(vscode.workspace.workspaceFolders[0].uri);
 	
 	if (!repository) {
