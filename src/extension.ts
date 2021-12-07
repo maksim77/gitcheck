@@ -42,7 +42,7 @@ export async function activate() {
 			});
 			if (gitConfig.length === 0) {
 				console.error("Missing user creds in git");
-				const option = await vscode.window.showErrorMessage("Missing user creds in git", "Overwrite");
+				const option = await vscode.window.showErrorMessage("Missing user settings in git", "Overwrite");
 				if (option && option === "Overwrite") {
 					await repository.setConfig("user.name", name);
 					await repository.setConfig("user.email", email);
