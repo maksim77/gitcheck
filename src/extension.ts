@@ -56,7 +56,7 @@ export async function activate() {
 						break;
 						
 					default:
-						console.log(c.key);
+						break;
 				}
 			});
 			if (gitName !== name || gitEmail !== email) {
