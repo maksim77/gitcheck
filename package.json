@@ -19,6 +19,7 @@
     "type": "git",
     "url": "https://github.com/maksim77/gitcheck.git"
   },
+  "icon": "media/folder-green-git-icon.png",
   "activationEvents": [
     "workspaceContains:.git/"
   ],
